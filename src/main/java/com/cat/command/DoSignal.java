@@ -1,7 +1,7 @@
 package com.cat.command;
 
-import com.cat.Signals.Signal;
-import com.cat.Signals.SignalsList;
+import com.cat.signals.Signal;
+import com.cat.signals.SignalsList;
 
 import java.io.IOException;
 

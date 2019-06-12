@@ -1,4 +1,4 @@
-package com.cat.Signals;
+package com.cat.signals;
 
 import com.cat.authorization.Authorization;
 import org.apache.http.HttpEntity;

@@ -1,6 +1,6 @@
 package com.cat.command;
 
-import com.cat.Signals.Signal;
+import com.cat.signals.Signal;
 import com.cat.authorization.Authorization;
 
 public class SwitchWork {
