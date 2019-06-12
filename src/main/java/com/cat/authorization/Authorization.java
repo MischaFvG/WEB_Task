@@ -1,5 +1,6 @@
 package com.cat.authorization;
 
+import com.cat.model.Person;
 import com.google.gson.Gson;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -12,27 +13,6 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 
 public class Authorization {
-    private class Person {
-        private String login;
-        private String password;
-
-        public Person() {
-        }
-
-        public Person(String login, String password) {
-            this.login = login;
-            this.password = password;
-        }
-
-        @Override
-        public String toString() {
-            return "Person{" +
-                    "login='" + login + '\'' +
-                    ", password='" + password + '\'' +
-                    '}';
-        }
-    }
-
     private HttpClient httpClient = HttpClientBuilder.create().build();
     private final String URL_PAGE = "http://client-api.instaforex.com/" +
             "api/" +
@@ -58,12 +38,17 @@ public class Authorization {
         request.setHeader("Content-Type", "application/json");
         HttpResponse httpResponse = httpClient.execute(request);
         HttpEntity httpEntity = httpResponse.getEntity();
+        String token = getToken(httpEntity);
+        System.out.println(token);
+        return token;
+    }
+
+    private String getToken(HttpEntity httpEntity) throws IOException {
         StringBuilder tokenString = new StringBuilder();
         if (httpEntity != null) {
             tokenString.append(EntityUtils.toString(httpEntity));
         }
         String token = tokenString.toString();
-        System.out.println(token);
         return token;
     }
 }

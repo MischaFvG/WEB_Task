@@ -20,18 +20,24 @@ public class Signal {
     private final String FIRST_UNIX_TIME = "1479860023";
     private final String SECOND_UNIX_TIME = "1480066860";
 
-    public void doSignal(SignalsList firstSignal, SignalsList secondSignal) throws IOException {
+    public String doSignal(SignalsList firstSignal, SignalsList secondSignal) throws IOException {
         HttpGet httpGet = new HttpGet(SIGNALS_URL + "&pairs=" + firstSignal + "," + secondSignal +
                 "&from=" + FIRST_UNIX_TIME +
                 "&to=" + SECOND_UNIX_TIME);
         httpGet.addHeader("Passkey", authorization.doAuthorization());
         HttpResponse httpResponse = httpClient.execute(httpGet);
         HttpEntity resultEntity = httpResponse.getEntity();
+        String result = getResponseResult(resultEntity);
+        System.out.println(result);
+        return result;
+    }
+
+    private String getResponseResult(HttpEntity httpEntity) throws IOException {
         StringBuilder resultString = new StringBuilder();
-        if (resultEntity != null) {
-            resultString.append(EntityUtils.toString(resultEntity));
+        if (httpEntity != null) {
+            resultString.append(EntityUtils.toString(httpEntity));
         }
         String result = resultString.toString();
-        System.out.println(result);
+        return result;
     }
 }
